@@ -1,3 +1,4 @@
+
 import requests
 from Valid import Valid
 
@@ -13,12 +14,18 @@ def main():
   # format should be a valid ID ZIP PHONE on each line
   out_file = open("results.csv", "w")
 
+
   print("Writing JSON to file.")
-  for obj in response.json():
+
+  print(len(response.json()))
+  for index, obj in enumerate(response.json()):
     #print(obj)
     
     #TODO: validate before write.
     #Valid module contains static validation method stubs
+
+    if not len(obj) == 5:
+      continue
 
     #zip is located in obj[3]
     if not Valid.zip(obj[3]):
@@ -30,6 +37,9 @@ def main():
 
     line = obj[0] + " " + obj[3] + " " + obj[4] + '\n'
 
+
+    print(f"Index: {index}, Object: {line}")
+    #print(index + " - " + line)
     out_file.write(line)
   
   print("Done.")

@@ -13,8 +13,9 @@ class Valid:
   @staticmethod
   def zip(input):
     #length?
-
     #digits?
+    if not re.match(r'^\d{5}+$', input):
+      return False
 
     #real ZIP?
     
@@ -33,6 +34,8 @@ class Valid:
   def phone(input):
     #length?
 
+    if not re.match(r'^\+(\d{1,3})\s\((\d{1,4})\)\s(\d{1,4})-(\d{4})$', input):
+      return False
     #digits?
 
     #format?

@@ -36,8 +36,7 @@
   </div>
 
   <script>
-    const DEBUG = false;
-
+    const DEBUG = true;
     document.getElementById("su1").addEventListener("click", (event) => {
       if(DEBUG)console.log('working');
 
@@ -48,24 +47,27 @@
       let result_name = document.getElementById("re1");
       let result_age = document.getElementById("re2");
       
-      result_name.innerHTML = user_name + (is_name_valid(user_name) ?  " <span class='green'>is</span> " : " <span class='red'>is not</span> ") + "a valid name.";
-      result_age.innerHTML = user_age + (is_age_valid(user_age) ?  " <span class='green'>is</span> " : " <span class='red'>is not</span> ") + "a valid age.";
+      //UPDATE:
+      //add name and age as innerText before adding HTML
+      result_name.innerText = user_name;
+      result_age.innerText = user_age;
+
+      result_name.innerHTML += (is_name_valid(user_name) ?  " <span class='green'>is</span> " : " <span class='red'>is not</span> ") + "a valid name.";
+      result_age.innerHTML += (is_age_valid(user_age) ?  " <span class='green'>is</span> " : " <span class='red'>is not</span> ") + "a valid age.";
     });
 
     //TODO: Improve this function to allow names but stop anything that isn't a name.
-    function is_name_valid(input){
-      if(input.substr("script") > -1)
-        return false;
-
-      if(input.substr("iframe") > -1)
-        return false;
-      
-      return true;
+    function is_name_valid(input){    
+      //UPDATE:
+      //regex for checking name
+      //latin characters including accent marks only, apostrophe, space, hyphen
+      return /^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$/.test(input);
     }
 
-    //TODO: Implement this method to allow age and stop anything else.
     function is_age_valid(input){
-      return true;
+      //UPDATE: only accept positive integers
+      //regex allows only digits, no other characters
+      return (/^(0|[1-9][0-9]*)$/.test(input));
     }
   </script>
 </body>
